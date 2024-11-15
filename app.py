@@ -3,17 +3,13 @@ from pydantic import BaseModel
 from config.settings import time_step, forecast_horizon
 from bl.model_controller import ModelController
 from dl.stock_data import get_stock_data
+from common.models.model_settings import ModelSettings
+from common.models.stock_request import StockRequest
 
 app = FastAPI()
 
 model_controller = ModelController()
 
-class StockRequest(BaseModel):
-    ticker: str
-
-class ModelSettings(BaseModel):
-    time_step: int
-    forecast_horizon: int
 
 @app.post("/train")
 def train_model(request: StockRequest):
